@@ -4,7 +4,7 @@ on:
     branches: [ prod ]
   workflow_dispatch:
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,10 +14,18 @@ jobs:
       - uses: pnpm/action-setup@v2.0.1
         with:
           version: latest
-          
+        
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build production-ready app
+      - name: Build app
         run: pnpm build
-      - name: Tree-view of dist folder 
-        run: tree dist
+      - name: Deploy to server
+      - uses: easingthemes/ssh-deploy@main
+        env:
+          SOURCE: "dist/"
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+          REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+          REMOTE_USER: ${{ secrets.SERVER_USER }}
+          TARGET: ${{ secrets.SERVER_TARGET }}
+      
