@@ -19,13 +19,13 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build app
         run: pnpm build
-#       - name: Deploy to server
-#       - uses: easingthemes/ssh-deploy@main
-#         env:
-#           SOURCE: "dist/"
-#           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-#           REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-#           REMOTE_PORT: ${{ secrets.SERVER_PORT }}
-#           REMOTE_USER: ${{ secrets.SERVER_USER }}
-#           TARGET: ${{ secrets.SERVER_TARGET }}
+      - name: Deploy to server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SOURCE: "dist/"
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+          REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+          REMOTE_USER: ${{ secrets.SERVER_USER }}
+          TARGET: ${{ secrets.SERVER_TARGET }}
       
