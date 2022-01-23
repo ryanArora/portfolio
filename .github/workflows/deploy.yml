@@ -11,6 +11,9 @@ jobs:
       - uses: actions/setup-node@v2.5.1
         with:
           node-version: lts/*
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: latest
       
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -22,3 +25,4 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           node --version
+          pnpm --version
